@@ -77,6 +77,15 @@ h1{font-family:"Fraunces",Georgia,serif; font-weight:500; font-size:clamp(26px,4
 .pill.bad{background:var(--bad-soft); color:var(--bad)}
 .pill svg{width:12px;height:12px}
 
+/* snapshot bar */
+.snapbar{display:flex; align-items:center; gap:10px 14px; flex-wrap:wrap; margin:2px 0 12px; padding:11px 15px; background:var(--surface); border:1px solid var(--border); border-radius:12px}
+.snapbar label{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.snapbar select{font-size:13px; padding:6px 28px 6px 10px}
+.snap-scope{font-size:12.5px; color:var(--ink-2); margin-left:auto}
+.snap-scope b{color:var(--ink); font-weight:600}
+.snap-live{display:inline-flex; align-items:center; gap:5px}
+.snap-live::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--accent)}
+
 /* section */
 .section{margin-top:30px}
 .section-head{display:flex; align-items:baseline; gap:12px; margin-bottom:14px; flex-wrap:wrap}
@@ -219,6 +228,12 @@ tbody tr:hover td{background:var(--surface-2)}
     <button class="theme-btn" id="themeBtn" aria-label="Toggle colour theme"><span id="themeIco">◐</span><span id="themeTxt">Theme</span></button>
   </div>
 
+  <div class="snapbar">
+    <label for="dateSel">Snapshot</label>
+    <select id="dateSel" aria-label="Scan date to view"></select>
+    <span class="snap-scope" id="snapScope"></span>
+  </div>
+
   <div class="hero" id="hero"></div>
 
   <div class="section">
@@ -305,7 +320,7 @@ const METRIC = Object.fromEntries(METRICS.map(m=>[m.id,m]));
 const SERIES_COLORS = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
 const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
-let state = { metric:"axe_issues", basis:"per", scope:"gov", agency:null };
+let state = { metric:"axe_issues", basis:"per", scope:"gov", agency:null, asOf:null };
 
 /* ---------- value access ---------- */
 const DIDX = Object.fromEntries(SCANS.map((d,i)=>[d,i]));
@@ -667,29 +682,74 @@ function sparkSVG(vals,opts){
 }
 
 /* ---------- hero ---------- */
-function heroData(){
-  const t=DATA.totals, d0=SCANS[0], dN=SCANS[SCANS.length-1];
-  const fi=raw(t,d0,"axe_issues"), fp=raw(t,d0,"pages_scanned");
-  const li=raw(t,dN,"axe_issues"), lp=raw(t,dN,"pages_scanned");
-  const first=fi/fp, last=li/lp;
-  const pct=Math.round((last-first)/first*100);
-  return {first,last,pct, firstPages:fp, lastPages:lp, firstD:d0, lastD:dN, lastIssues:li};
+// Compute the headline snapshot for a node (gov totals or one agency), measured
+// from the first scan the node has data for up to the selected "as at" scan
+// (state.asOf; null = latest). Robust to agencies that appear/leave mid-series.
+function heroData(node){
+  const endIdx = (state.asOf!=null && DIDX[state.asOf]!=null) ? DIDX[state.asOf] : SCANS.length-1;
+  let fi=null,fp=null,fd=null;
+  for(let i=0;i<=endIdx;i++){ const d=SCANS[i], iss=raw(node,d,"axe_issues"), pg=raw(node,d,"pages_scanned"); if(iss!==null&&pg){ fi=iss; fp=pg; fd=d; break; } }
+  let li=null,lp=null,ld=null;
+  for(let i=endIdx;i>=0;i--){ const d=SCANS[i], iss=raw(node,d,"axe_issues"), pg=raw(node,d,"pages_scanned"); if(iss!==null&&pg){ li=iss; lp=pg; ld=d; break; } }
+  const last = (li!==null&&lp) ? li/lp : null;
+  if(fd===null||ld===null||fd===ld) return {ok:false, last, lastPages:lp, lastIssues:li, lastD:ld, firstD:fd, firstPages:fp};
+  const first=fi/fp, pct=Math.round((last-first)/first*100);
+  return {ok:true, first, last, pct, firstPages:fp, lastPages:lp, firstD:fd, lastD:ld, lastIssues:li};
 }
 function drawHero(){
-  const h=heroData();
-  const up=h.pct<0; // negative pct = fewer issues = good
-  const arrow = up? '<svg viewBox="0 0 12 12"><path d="M6 10V2M6 2L2.5 5.5M6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-                  : '<svg viewBox="0 0 12 12"><path d="M6 2v8M6 10l3.5-3.5M6 10L2.5 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  const covPct=Math.round((h.lastPages-h.firstPages)/h.firstPages*100);
-  document.getElementById("hero").innerHTML=`
+  const isAgency = state.scope==="agency" && state.agency && DATA.by_org[state.agency];
+  const node = isAgency ? DATA.by_org[state.agency] : DATA.totals;
+  const who = isAgency ? `for <b>${esc(state.agency)}</b>` : "across government";
+  const h=heroData(node);
+  const arrowUp = '<svg viewBox="0 0 12 12"><path d="M6 10V2M6 2L2.5 5.5M6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const arrowDn = '<svg viewBox="0 0 12 12"><path d="M6 2v8M6 10l3.5-3.5M6 10L2.5 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  let mainCard;
+  if(h.ok){
+    const up=h.pct<0; // fewer issues/page = improvement (good)
+    const covPct = h.firstPages ? Math.round((h.lastPages-h.firstPages)/h.firstPages*100) : null;
+    const covPhrase = covPct===null ? "" : covPct>0 ? ` even as pages scanned grew ${covPct}%` : covPct<0 ? ` while pages scanned fell ${Math.abs(covPct)}%` : "";
+    mainCard=`
     <div class="card hero-main">
-      <div class="hero-fig">${h.pct}%</div>
-      <div class="lab">change in serious &amp; critical issues <b>per page</b> from ${fmtDate(h.firstD)} to ${fmtDate(h.lastD)} — steady improvement even as scanning nearly doubled.</div>
-      <div class="pillrow"><span class="pill ${up?'good':'bad'}">${arrow}${h.first.toFixed(2)} → ${h.last.toFixed(2)} issues/page</span></div>
-    </div>
-    <div class="card stat"><div class="k">Latest issues / page</div><div class="v">${h.last.toFixed(2)}</div><div class="d">${h.lastIssues.toLocaleString()} issues over ${h.lastPages.toLocaleString()} pages</div></div>
-    <div class="card stat"><div class="k">Coverage growth</div><div class="v">+${covPct}%</div><div class="d">${h.firstPages.toLocaleString()} → ${h.lastPages.toLocaleString()} pages scanned</div></div>
-    <div class="card stat"><div class="k">Agencies tracked</div><div class="v">${Object.keys(DATA.by_org).length}</div><div class="d">as at 30 June 2026, merger-aware</div></div>`;
+      <div class="hero-fig" style="color:var(--${up?'good':'bad'})">${h.pct>0?'+':''}${h.pct}%</div>
+      <div class="lab">change in serious &amp; critical issues <b>per page</b> ${who} from ${fmtDate(h.firstD)} to ${fmtDate(h.lastD)}${covPhrase}.</div>
+      <div class="pillrow"><span class="pill ${up?'good':'bad'}">${up?arrowUp:arrowDn}${h.first.toFixed(2)} → ${h.last.toFixed(2)} issues/page</span></div>
+    </div>`;
+  } else {
+    mainCard=`
+    <div class="card hero-main">
+      <div class="hero-fig" style="color:var(--ink-2)">${h.last!==null?h.last.toFixed(2):'—'}</div>
+      <div class="lab">serious &amp; critical issues <b>per page</b> ${who}${h.lastD?` at ${fmtDate(h.lastD)}`:''} — not enough scans to show a trend.</div>
+    </div>`;
+  }
+
+  const latestK = state.asOf!=null ? "Issues / page" : "Latest issues / page";
+  const latestTile=`<div class="card stat"><div class="k">${latestK}</div><div class="v">${h.last!==null?h.last.toFixed(2):'—'}</div><div class="d">${h.lastIssues!=null?h.lastIssues.toLocaleString():'—'} issues · ${h.lastPages!=null?h.lastPages.toLocaleString():'—'} pages${h.lastD?` · ${fmtDate(h.lastD)}`:''}</div></div>`;
+
+  let covTile;
+  if(h.ok && h.firstPages){
+    const covPct=Math.round((h.lastPages-h.firstPages)/h.firstPages*100);
+    covTile=`<div class="card stat"><div class="k">Coverage change</div><div class="v">${covPct>0?'+':''}${covPct}%</div><div class="d">${h.firstPages.toLocaleString()} → ${h.lastPages.toLocaleString()} pages scanned</div></div>`;
+  } else {
+    covTile=`<div class="card stat"><div class="k">Pages scanned</div><div class="v">${h.lastPages!=null?h.lastPages.toLocaleString():'—'}</div><div class="d">${h.lastD?fmtDate(h.lastD):'—'}</div></div>`;
+  }
+
+  let lastTile;
+  if(isAgency){
+    const nSites = DATA.by_site[state.agency] ? Object.keys(DATA.by_site[state.agency]).length : 0;
+    lastTile=`<div class="card stat"><div class="k">Sites tracked</div><div class="v">${nSites}</div><div class="d">owned by this agency, merger-aware</div></div>`;
+  } else {
+    lastTile=`<div class="card stat"><div class="k">Agencies tracked</div><div class="v">${Object.keys(DATA.by_org).length}</div><div class="d">as at 30 June 2026, merger-aware</div></div>`;
+  }
+
+  document.getElementById("hero").innerHTML = mainCard + latestTile + covTile + lastTile;
+
+  // reflect what the snapshot is currently showing
+  const ss=document.getElementById("snapScope");
+  if(ss){
+    const whenTxt = state.asOf!=null ? `as at <b>${fmtDate(state.asOf)}</b>` : `<span class="snap-live">latest scan</span>`;
+    ss.innerHTML = `${isAgency?`<b>${esc(state.agency)}</b>`:"Whole of government"} · ${whenTxt}`;
+  }
 }
 
 /* ---------- table ---------- */
@@ -714,6 +774,12 @@ function populate(){
     Object.keys(DATA.by_org).sort().map(o=>`<option value="${o}">${o}</option>`).join("");
   as.value="";
   state.agency=null;
+  const ds=document.getElementById("dateSel");
+  const lastD=SCANS[SCANS.length-1];
+  ds.innerHTML='<option value="">Latest ('+fmtDate(lastD)+')</option>'+
+    SCANS.slice().reverse().map(d=>`<option value="${d}">${fmtDate(d)}</option>`).join("");
+  ds.value="";
+  state.asOf=null;
   syncAgencyField();
 }
 function syncBasis(){
@@ -737,7 +803,7 @@ document.getElementById("basisSeg").addEventListener("click",e=>{const b=e.targe
 document.getElementById("scopeSel").addEventListener("change",e=>{
   state.scope=e.target.value;
   if(state.scope!=="agency"){ document.getElementById("agencySel").value=""; state.agency=null; }
-  syncAgencyField(); drawChart(); drawAgencyReport();
+  syncAgencyField(); drawHero(); drawChart(); drawAgencyReport();
 });
 document.getElementById("agencySel").addEventListener("change",e=>{
   const v=e.target.value;
@@ -745,7 +811,11 @@ document.getElementById("agencySel").addEventListener("change",e=>{
   // picking an agency focuses it; clearing returns to government total
   state.scope = v ? "agency" : "gov";
   document.getElementById("scopeSel").value = state.scope;
-  syncAgencyField(); drawChart(); drawAgencyReport();
+  syncAgencyField(); drawHero(); drawChart(); drawAgencyReport();
+});
+document.getElementById("dateSel").addEventListener("change",e=>{
+  state.asOf = e.target.value || null;
+  drawHero();
 });
 function syncAgencyField(){
   // the agency picker is always visible; dim it when it isn't the active lens
