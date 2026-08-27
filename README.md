@@ -28,6 +28,9 @@ Run `python3 scripts/clean.py` to regenerate:
 |---|---|---|
 | `data/clean/issues_long.csv.gz` | one row per extracted issue (all audits, all scans) | full detail; attributed to current agency, `in_current_scope` flag |
 | `data/clean/summary_by_org.csv` | agency × scan_date | trend charts per agency |
+| `data/clean/summary_by_site.csv` | website × scan_date | per-site drill-down / agency report |
+| `data/clean/axe_impact_by_org.csv` | agency × scan_date × impact | accessibility impact split |
+| `data/clean/axe_rules_by_org.csv` | agency × scan_date × rule | top failing WCAG rules |
 | `data/clean/summary_by_sector.csv` | sector × scan_date | cross-government sector trends |
 | `data/clean/summary_totals.csv` | scan_date | headline government-wide trend |
 | `data/clean/agency_url_map.csv` | base_url | reference: which agency owns each site + historical names |

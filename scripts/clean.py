@@ -247,6 +247,11 @@ def main():
     site_summ = defaultdict(lambda: defaultdict(float))
     site_org = {}                  # base_url_key -> (current_org, current_sector)
 
+    # agency-level axe breakdowns for the per-agency report
+    axe_impact = defaultdict(float)          # (date, org, impact) -> issues
+    axe_rule = defaultdict(float)            # (date, org, rule_id) -> issues
+    axe_rule_sites = defaultdict(set)        # (date, org, rule_id) -> {base_url_key}
+
     issues_path = os.path.join(OUT, "issues_long.csv.gz")
     issues_cols = ["scan_date", "audit", "organisation", "sector",
                    "base_url", "url", "rule_id", "impact", "description",
@@ -297,6 +302,12 @@ def main():
                         sector_of[org] = sector
                         site_org[key] = (org, sector)
                         a = rec["audit"]
+                        if a == "axe_core":
+                            imp = rec["impact"] or "unknown"
+                            axe_impact[(date, org, imp)] += rec["count"]
+                            rid = rec["rule_id"] or "(unlabelled)"
+                            axe_rule[(date, org, rid)] += rec["count"]
+                            axe_rule_sites[(date, org, rid)].add(key)
                         for s in (summ[(date, org)], site_summ[(date, key)]):
                             if a == "axe_core":
                                 s["axe_issue_rows"] += 1
@@ -420,6 +431,26 @@ def main():
                site_rows)
 
     # ----------------------------------------------------------------- #
+    # axe_impact_by_org / axe_rules_by_org — agency-level axe breakdowns
+    # for the per-agency report (impact split + top failing WCAG rules).
+    # ----------------------------------------------------------------- #
+    impact_rows = [
+        {"scan_date": d, "organisation": o, "impact": imp, "issues": int(v)}
+        for (d, o, imp), v in sorted(axe_impact.items())
+    ]
+    _write_csv(os.path.join(OUT, "axe_impact_by_org.csv"),
+               ["scan_date", "organisation", "impact", "issues"], impact_rows)
+
+    rule_rows = [
+        {"scan_date": d, "organisation": o, "rule_id": r, "issues": int(v),
+         "sites_affected": len(axe_rule_sites[(d, o, r)])}
+        for (d, o, r), v in sorted(axe_rule.items())
+    ]
+    _write_csv(os.path.join(OUT, "axe_rules_by_org.csv"),
+               ["scan_date", "organisation", "rule_id", "issues", "sites_affected"],
+               rule_rows)
+
+    # ----------------------------------------------------------------- #
     # summary_by_sector (wide) — roll up agencies within a sector
     # ----------------------------------------------------------------- #
     sec = defaultdict(lambda: defaultdict(float))
@@ -514,6 +545,7 @@ def main():
 
     print("Wrote:")
     for f in ["issues_long.csv.gz", "summary_by_org.csv", "summary_by_site.csv",
+              "axe_impact_by_org.csv", "axe_rules_by_org.csv",
               "summary_by_sector.csv", "summary_totals.csv", "agency_url_map.csv"]:
         p = os.path.join(OUT, f)
         print(f"  data/clean/{f:28s} {os.path.getsize(p):>12,} bytes")

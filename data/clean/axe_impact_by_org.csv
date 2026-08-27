@@ -1,0 +1,498 @@
+scan_date,organisation,impact,issues
+2025-06-30,Aroturuki Tamariki,serious,28
+2025-06-30,Cancer Control Agency,critical,702
+2025-06-30,Cancer Control Agency,serious,4800
+2025-06-30,Charter School Agency,serious,4
+2025-06-30,Crown Law Office,critical,162
+2025-06-30,Crown Law Office,serious,6054
+2025-06-30,Department of Conservation,critical,562
+2025-06-30,Department of Conservation,serious,4344
+2025-06-30,Department of Corrections,critical,13
+2025-06-30,Department of Corrections,serious,1073
+2025-06-30,Department of Internal Affairs,critical,6325
+2025-06-30,Department of Internal Affairs,serious,24330
+2025-06-30,Department of the Prime Minister and Cabinet,serious,1
+2025-06-30,Education Review Office,critical,1470
+2025-06-30,Education Review Office,serious,414
+2025-06-30,Financial Markets Authority,critical,253
+2025-06-30,Financial Markets Authority,serious,1447
+2025-06-30,Government Communications Security Bureau,critical,2
+2025-06-30,Government Communications Security Bureau,serious,70
+2025-06-30,Health New Zealand,critical,594
+2025-06-30,Health New Zealand,serious,1852
+2025-06-30,Inland Revenue Department,critical,1
+2025-06-30,Inland Revenue Department,serious,242
+2025-06-30,Land Information New Zealand,critical,363
+2025-06-30,Land Information New Zealand,serious,350
+2025-06-30,Ministry for Culture and Heritage,critical,3597
+2025-06-30,Ministry for Culture and Heritage,serious,25178
+2025-06-30,Ministry for Ethnic Communities,critical,800
+2025-06-30,Ministry for Ethnic Communities,serious,916
+2025-06-30,Ministry for Pacific Peoples,critical,502
+2025-06-30,Ministry for Pacific Peoples,serious,940
+2025-06-30,Ministry for Primary Industries,critical,1233
+2025-06-30,Ministry for Primary Industries,serious,2266
+2025-06-30,Ministry for Regulation,critical,60
+2025-06-30,Ministry for Regulation,serious,115
+2025-06-30,Ministry for Women,critical,204
+2025-06-30,Ministry for Women,serious,2109
+2025-06-30,"Ministry of Business, Innovation and Employment",critical,6775
+2025-06-30,"Ministry of Business, Innovation and Employment",serious,11320
+2025-06-30,"Ministry of Cities, Environment, Regions and Transport",critical,4175
+2025-06-30,"Ministry of Cities, Environment, Regions and Transport",serious,5159
+2025-06-30,Ministry of Defence,critical,36
+2025-06-30,Ministry of Defence,serious,4
+2025-06-30,Ministry of Education,critical,2870
+2025-06-30,Ministry of Education,serious,22082
+2025-06-30,Ministry of Foreign Affairs and Trade,critical,2396
+2025-06-30,Ministry of Foreign Affairs and Trade,serious,1444
+2025-06-30,Ministry of Health,critical,326
+2025-06-30,Ministry of Health,serious,132
+2025-06-30,Ministry of Justice,critical,2132
+2025-06-30,Ministry of Justice,serious,13917
+2025-06-30,Ministry of Social Development,critical,1623
+2025-06-30,Ministry of Social Development,serious,1843
+2025-06-30,National Emergency Management Agency,critical,30
+2025-06-30,National Emergency Management Agency,serious,44
+2025-06-30,New Zealand Customs Service,critical,14
+2025-06-30,New Zealand Customs Service,serious,516
+2025-06-30,New Zealand Defence Force,critical,1988
+2025-06-30,New Zealand Defence Force,serious,8401
+2025-06-30,New Zealand Police,critical,351
+2025-06-30,New Zealand Police,serious,1320
+2025-06-30,New Zealand Security Intelligence Service,critical,2
+2025-06-30,New Zealand Security Intelligence Service,serious,707
+2025-06-30,Oranga Tamariki,critical,236
+2025-06-30,Oranga Tamariki,serious,54
+2025-06-30,Parliamentary Counsel Office,critical,419
+2025-06-30,Parliamentary Counsel Office,serious,817
+2025-06-30,Public Service Commission,critical,907
+2025-06-30,Public Service Commission,serious,4168
+2025-06-30,Serious Fraud Office,critical,2
+2025-06-30,Serious Fraud Office,serious,26
+2025-06-30,Social Investment Agency,critical,895
+2025-06-30,Social Investment Agency,serious,877
+2025-06-30,Statistics New Zealand,critical,704
+2025-06-30,Statistics New Zealand,serious,2029
+2025-06-30,Te Puni Kōkiri,critical,2
+2025-06-30,Te Puni Kōkiri,serious,538
+2025-06-30,Te Tari Whakatau,critical,7
+2025-06-30,Te Tari Whakatau,serious,5517
+2025-06-30,The Treasury,critical,2
+2025-06-30,The Treasury,serious,75
+2025-06-30,Whaikaha,serious,15
+2025-08-12,Aroturuki Tamariki,serious,28
+2025-08-12,Cancer Control Agency,critical,741
+2025-08-12,Cancer Control Agency,serious,5029
+2025-08-12,Charter School Agency,serious,4
+2025-08-12,Crown Law Office,critical,162
+2025-08-12,Crown Law Office,serious,6060
+2025-08-12,Department of Conservation,critical,261
+2025-08-12,Department of Conservation,serious,4066
+2025-08-12,Department of Corrections,critical,27
+2025-08-12,Department of Corrections,serious,1098
+2025-08-12,Department of Internal Affairs,critical,6503
+2025-08-12,Department of Internal Affairs,serious,21715
+2025-08-12,Department of the Prime Minister and Cabinet,critical,116
+2025-08-12,Department of the Prime Minister and Cabinet,serious,1616
+2025-08-12,Education Review Office,critical,1690
+2025-08-12,Education Review Office,serious,228
+2025-08-12,Financial Markets Authority,critical,255
+2025-08-12,Financial Markets Authority,serious,1537
+2025-08-12,Government Communications Security Bureau,serious,38
+2025-08-12,Health New Zealand,critical,582
+2025-08-12,Health New Zealand,serious,1858
+2025-08-12,Inland Revenue Department,serious,234
+2025-08-12,Land Information New Zealand,critical,468
+2025-08-12,Land Information New Zealand,serious,2742
+2025-08-12,Ministry for Culture and Heritage,critical,718
+2025-08-12,Ministry for Culture and Heritage,serious,1314
+2025-08-12,Ministry for Ethnic Communities,critical,800
+2025-08-12,Ministry for Ethnic Communities,serious,888
+2025-08-12,Ministry for Pacific Peoples,critical,502
+2025-08-12,Ministry for Pacific Peoples,serious,928
+2025-08-12,Ministry for Primary Industries,critical,1244
+2025-08-12,Ministry for Primary Industries,serious,2277
+2025-08-12,Ministry for Regulation,critical,48
+2025-08-12,Ministry for Regulation,serious,101
+2025-08-12,Ministry for Women,critical,204
+2025-08-12,Ministry for Women,serious,1983
+2025-08-12,"Ministry of Business, Innovation and Employment",critical,8307
+2025-08-12,"Ministry of Business, Innovation and Employment",serious,15081
+2025-08-12,"Ministry of Cities, Environment, Regions and Transport",critical,4117
+2025-08-12,"Ministry of Cities, Environment, Regions and Transport",serious,6127
+2025-08-12,Ministry of Defence,critical,50
+2025-08-12,Ministry of Defence,serious,34
+2025-08-12,Ministry of Education,critical,2145
+2025-08-12,Ministry of Education,serious,17171
+2025-08-12,Ministry of Foreign Affairs and Trade,critical,2154
+2025-08-12,Ministry of Foreign Affairs and Trade,serious,1409
+2025-08-12,Ministry of Health,critical,105
+2025-08-12,Ministry of Health,serious,319
+2025-08-12,Ministry of Justice,critical,2038
+2025-08-12,Ministry of Justice,serious,9106
+2025-08-12,Ministry of Social Development,critical,2314
+2025-08-12,Ministry of Social Development,serious,1728
+2025-08-12,National Emergency Management Agency,critical,28
+2025-08-12,National Emergency Management Agency,serious,29
+2025-08-12,New Zealand Customs Service,critical,38
+2025-08-12,New Zealand Customs Service,serious,811
+2025-08-12,New Zealand Defence Force,critical,2064
+2025-08-12,New Zealand Defence Force,serious,9136
+2025-08-12,New Zealand Police,critical,329
+2025-08-12,New Zealand Police,serious,1161
+2025-08-12,New Zealand Security Intelligence Service,serious,705
+2025-08-12,Oranga Tamariki,critical,445
+2025-08-12,Oranga Tamariki,serious,376
+2025-08-12,Parliamentary Counsel Office,critical,626
+2025-08-12,Parliamentary Counsel Office,serious,1415
+2025-08-12,Public Service Commission,critical,995
+2025-08-12,Public Service Commission,serious,4674
+2025-08-12,Serious Fraud Office,critical,2
+2025-08-12,Serious Fraud Office,serious,30
+2025-08-12,Social Investment Agency,critical,903
+2025-08-12,Social Investment Agency,serious,862
+2025-08-12,Statistics New Zealand,critical,6335
+2025-08-12,Statistics New Zealand,serious,2950
+2025-08-12,Te Puni Kōkiri,critical,2
+2025-08-12,Te Puni Kōkiri,serious,431
+2025-08-12,Te Tari Whakatau,critical,4
+2025-08-12,Te Tari Whakatau,serious,5977
+2025-08-12,The Treasury,critical,351
+2025-08-12,The Treasury,serious,3295
+2025-08-12,Whaikaha,serious,11
+2025-09-29,Aroturuki Tamariki,serious,21
+2025-09-29,Cancer Control Agency,critical,722
+2025-09-29,Cancer Control Agency,serious,5126
+2025-09-29,Crown Law Office,critical,164
+2025-09-29,Crown Law Office,serious,6085
+2025-09-29,Department of Conservation,critical,455
+2025-09-29,Department of Conservation,serious,4826
+2025-09-29,Department of Corrections,critical,15
+2025-09-29,Department of Corrections,serious,1114
+2025-09-29,Department of Internal Affairs,critical,6220
+2025-09-29,Department of Internal Affairs,serious,22726
+2025-09-29,Department of the Prime Minister and Cabinet,critical,64
+2025-09-29,Department of the Prime Minister and Cabinet,serious,2800
+2025-09-29,Education Review Office,critical,1408
+2025-09-29,Education Review Office,serious,286
+2025-09-29,Financial Markets Authority,critical,258
+2025-09-29,Financial Markets Authority,serious,1480
+2025-09-29,Government Communications Security Bureau,critical,136
+2025-09-29,Government Communications Security Bureau,serious,355
+2025-09-29,Health New Zealand,critical,667
+2025-09-29,Health New Zealand,serious,1688
+2025-09-29,Inland Revenue Department,critical,2
+2025-09-29,Inland Revenue Department,serious,237
+2025-09-29,Land Information New Zealand,critical,352
+2025-09-29,Land Information New Zealand,serious,2304
+2025-09-29,Ministry for Culture and Heritage,critical,441
+2025-09-29,Ministry for Culture and Heritage,serious,350
+2025-09-29,Ministry for Ethnic Communities,critical,800
+2025-09-29,Ministry for Ethnic Communities,serious,910
+2025-09-29,Ministry for Pacific Peoples,critical,502
+2025-09-29,Ministry for Pacific Peoples,serious,954
+2025-09-29,Ministry for Primary Industries,critical,1632
+2025-09-29,Ministry for Primary Industries,serious,6437
+2025-09-29,Ministry for Regulation,critical,45
+2025-09-29,Ministry for Regulation,serious,88
+2025-09-29,Ministry for Women,critical,204
+2025-09-29,Ministry for Women,serious,1939
+2025-09-29,"Ministry of Business, Innovation and Employment",critical,7431
+2025-09-29,"Ministry of Business, Innovation and Employment",serious,14139
+2025-09-29,"Ministry of Cities, Environment, Regions and Transport",critical,1577
+2025-09-29,"Ministry of Cities, Environment, Regions and Transport",serious,6562
+2025-09-29,Ministry of Defence,critical,59
+2025-09-29,Ministry of Defence,serious,76
+2025-09-29,Ministry of Education,critical,2510
+2025-09-29,Ministry of Education,serious,21034
+2025-09-29,Ministry of Foreign Affairs and Trade,critical,183
+2025-09-29,Ministry of Foreign Affairs and Trade,serious,1129
+2025-09-29,Ministry of Health,critical,96
+2025-09-29,Ministry of Health,serious,202
+2025-09-29,Ministry of Justice,critical,2058
+2025-09-29,Ministry of Justice,serious,8584
+2025-09-29,Ministry of Social Development,critical,2056
+2025-09-29,Ministry of Social Development,serious,5656
+2025-09-29,National Emergency Management Agency,critical,52
+2025-09-29,National Emergency Management Agency,serious,210
+2025-09-29,New Zealand Customs Service,critical,74
+2025-09-29,New Zealand Customs Service,serious,1027
+2025-09-29,New Zealand Defence Force,critical,1836
+2025-09-29,New Zealand Defence Force,serious,9409
+2025-09-29,New Zealand Police,critical,391
+2025-09-29,New Zealand Police,serious,1247
+2025-09-29,New Zealand Security Intelligence Service,critical,4
+2025-09-29,New Zealand Security Intelligence Service,serious,475
+2025-09-29,Oranga Tamariki,critical,257
+2025-09-29,Oranga Tamariki,serious,310
+2025-09-29,Parliamentary Counsel Office,critical,573
+2025-09-29,Parliamentary Counsel Office,serious,599
+2025-09-29,Public Service Commission,critical,955
+2025-09-29,Public Service Commission,serious,5312
+2025-09-29,Serious Fraud Office,critical,2
+2025-09-29,Serious Fraud Office,serious,22
+2025-09-29,Social Investment Agency,critical,785
+2025-09-29,Social Investment Agency,serious,758
+2025-09-29,Statistics New Zealand,critical,1108
+2025-09-29,Statistics New Zealand,serious,2403
+2025-09-29,Te Puni Kōkiri,critical,2
+2025-09-29,Te Puni Kōkiri,serious,454
+2025-09-29,Te Tari Whakatau,critical,13
+2025-09-29,Te Tari Whakatau,serious,5201
+2025-09-29,The Treasury,critical,327
+2025-09-29,The Treasury,serious,3741
+2025-09-29,Whaikaha,serious,7
+2025-12-17,Cancer Control Agency,critical,773
+2025-12-17,Cancer Control Agency,serious,5305
+2025-12-17,Charter School Agency,serious,4
+2025-12-17,Crown Law Office,critical,164
+2025-12-17,Crown Law Office,serious,6109
+2025-12-17,Department of Conservation,critical,680
+2025-12-17,Department of Conservation,serious,5898
+2025-12-17,Department of Corrections,critical,33
+2025-12-17,Department of Corrections,serious,1118
+2025-12-17,Department of Internal Affairs,critical,4630
+2025-12-17,Department of Internal Affairs,serious,14819
+2025-12-17,Department of the Prime Minister and Cabinet,critical,134
+2025-12-17,Department of the Prime Minister and Cabinet,serious,1290
+2025-12-17,Education Review Office,critical,1756
+2025-12-17,Education Review Office,serious,368
+2025-12-17,Financial Markets Authority,critical,267
+2025-12-17,Financial Markets Authority,serious,1526
+2025-12-17,Government Communications Security Bureau,critical,242
+2025-12-17,Government Communications Security Bureau,serious,348
+2025-12-17,Health New Zealand,critical,617
+2025-12-17,Health New Zealand,serious,1918
+2025-12-17,Inland Revenue Department,critical,2
+2025-12-17,Inland Revenue Department,serious,166
+2025-12-17,Land Information New Zealand,critical,436
+2025-12-17,Land Information New Zealand,serious,2053
+2025-12-17,Ministry for Culture and Heritage,critical,70
+2025-12-17,Ministry for Culture and Heritage,serious,246
+2025-12-17,Ministry for Ethnic Communities,critical,800
+2025-12-17,Ministry for Ethnic Communities,serious,1298
+2025-12-17,Ministry for Pacific Peoples,critical,502
+2025-12-17,Ministry for Pacific Peoples,serious,968
+2025-12-17,Ministry for Primary Industries,critical,776
+2025-12-17,Ministry for Primary Industries,serious,1898
+2025-12-17,Ministry for Regulation,critical,73
+2025-12-17,Ministry for Regulation,serious,97
+2025-12-17,Ministry for Women,critical,202
+2025-12-17,Ministry for Women,serious,1944
+2025-12-17,"Ministry of Business, Innovation and Employment",critical,6573
+2025-12-17,"Ministry of Business, Innovation and Employment",serious,11580
+2025-12-17,"Ministry of Cities, Environment, Regions and Transport",critical,1341
+2025-12-17,"Ministry of Cities, Environment, Regions and Transport",serious,5376
+2025-12-17,Ministry of Defence,critical,8
+2025-12-17,Ministry of Defence,serious,36
+2025-12-17,Ministry of Education,critical,4575
+2025-12-17,Ministry of Education,serious,23407
+2025-12-17,Ministry of Foreign Affairs and Trade,critical,276
+2025-12-17,Ministry of Foreign Affairs and Trade,serious,1082
+2025-12-17,Ministry of Health,serious,125
+2025-12-17,Ministry of Justice,critical,2302
+2025-12-17,Ministry of Justice,serious,3747
+2025-12-17,Ministry of Social Development,critical,2044
+2025-12-17,Ministry of Social Development,serious,4386
+2025-12-17,National Emergency Management Agency,serious,13
+2025-12-17,Natural Hazards Commission,serious,12
+2025-12-17,New Zealand Customs Service,critical,22
+2025-12-17,New Zealand Customs Service,serious,704
+2025-12-17,New Zealand Defence Force,critical,1501
+2025-12-17,New Zealand Defence Force,serious,8515
+2025-12-17,New Zealand Police,critical,412
+2025-12-17,New Zealand Police,serious,166
+2025-12-17,New Zealand Security Intelligence Service,serious,2
+2025-12-17,Oranga Tamariki,critical,241
+2025-12-17,Oranga Tamariki,serious,253
+2025-12-17,Parliamentary Counsel Office,critical,684
+2025-12-17,Parliamentary Counsel Office,serious,802
+2025-12-17,Public Service Commission,critical,734
+2025-12-17,Public Service Commission,serious,5076
+2025-12-17,Serious Fraud Office,serious,65
+2025-12-17,Social Investment Agency,critical,772
+2025-12-17,Social Investment Agency,serious,757
+2025-12-17,Statistics New Zealand,critical,6352
+2025-12-17,Statistics New Zealand,serious,2463
+2025-12-17,Te Puni Kōkiri,critical,2
+2025-12-17,Te Puni Kōkiri,serious,192
+2025-12-17,Te Tari Whakatau,critical,3
+2025-12-17,Te Tari Whakatau,serious,1758
+2025-12-17,The Treasury,critical,331
+2025-12-17,The Treasury,serious,3771
+2025-12-17,Whaikaha,serious,24
+2026-03-31,Aroturuki Tamariki,serious,2
+2026-03-31,Cancer Control Agency,critical,679
+2026-03-31,Cancer Control Agency,serious,5237
+2026-03-31,Charter School Agency,serious,8
+2026-03-31,Crown Law Office,moderate,168
+2026-03-31,Crown Law Office,serious,6188
+2026-03-31,Department of Conservation,critical,438
+2026-03-31,Department of Conservation,moderate,14
+2026-03-31,Department of Conservation,serious,4140
+2026-03-31,Department of Corrections,critical,3
+2026-03-31,Department of Corrections,serious,1015
+2026-03-31,Department of Internal Affairs,critical,4708
+2026-03-31,Department of Internal Affairs,moderate,413
+2026-03-31,Department of Internal Affairs,serious,13486
+2026-03-31,Department of the Prime Minister and Cabinet,critical,64
+2026-03-31,Department of the Prime Minister and Cabinet,serious,1217
+2026-03-31,Education Review Office,critical,250
+2026-03-31,Education Review Office,serious,424
+2026-03-31,Financial Markets Authority,critical,51
+2026-03-31,Financial Markets Authority,serious,682
+2026-03-31,Government Communications Security Bureau,critical,146
+2026-03-31,Government Communications Security Bureau,serious,304
+2026-03-31,Health New Zealand,critical,378
+2026-03-31,Health New Zealand,serious,2266
+2026-03-31,Inland Revenue Department,critical,4
+2026-03-31,Inland Revenue Department,serious,62
+2026-03-31,Land Information New Zealand,critical,455
+2026-03-31,Land Information New Zealand,moderate,103
+2026-03-31,Land Information New Zealand,serious,1861
+2026-03-31,Ministry for Culture and Heritage,critical,80
+2026-03-31,Ministry for Culture and Heritage,serious,226
+2026-03-31,Ministry for Ethnic Communities,critical,800
+2026-03-31,Ministry for Ethnic Communities,serious,1298
+2026-03-31,Ministry for Pacific Peoples,critical,500
+2026-03-31,Ministry for Pacific Peoples,serious,807
+2026-03-31,Ministry for Primary Industries,critical,756
+2026-03-31,Ministry for Primary Industries,serious,3352
+2026-03-31,Ministry for Regulation,critical,74
+2026-03-31,Ministry for Regulation,serious,67
+2026-03-31,Ministry for Women,serious,8
+2026-03-31,"Ministry of Business, Innovation and Employment",critical,4423
+2026-03-31,"Ministry of Business, Innovation and Employment",moderate,10
+2026-03-31,"Ministry of Business, Innovation and Employment",serious,12749
+2026-03-31,"Ministry of Cities, Environment, Regions and Transport",critical,630
+2026-03-31,"Ministry of Cities, Environment, Regions and Transport",moderate,348
+2026-03-31,"Ministry of Cities, Environment, Regions and Transport",serious,4124
+2026-03-31,Ministry of Defence,critical,6
+2026-03-31,Ministry of Defence,serious,80
+2026-03-31,Ministry of Education,critical,4055
+2026-03-31,Ministry of Education,moderate,67
+2026-03-31,Ministry of Education,serious,23620
+2026-03-31,Ministry of Foreign Affairs and Trade,critical,182
+2026-03-31,Ministry of Foreign Affairs and Trade,moderate,18
+2026-03-31,Ministry of Foreign Affairs and Trade,serious,447
+2026-03-31,Ministry of Health,critical,8
+2026-03-31,Ministry of Health,serious,182
+2026-03-31,Ministry of Justice,critical,698
+2026-03-31,Ministry of Justice,serious,2122
+2026-03-31,Ministry of Social Development,critical,1387
+2026-03-31,Ministry of Social Development,moderate,200
+2026-03-31,Ministry of Social Development,serious,1857
+2026-03-31,National Emergency Management Agency,critical,2
+2026-03-31,National Emergency Management Agency,serious,20
+2026-03-31,Natural Hazards Commission,serious,15
+2026-03-31,New Zealand Customs Service,critical,38
+2026-03-31,New Zealand Customs Service,serious,793
+2026-03-31,New Zealand Defence Force,critical,766
+2026-03-31,New Zealand Defence Force,moderate,200
+2026-03-31,New Zealand Defence Force,serious,9603
+2026-03-31,New Zealand Police,critical,2
+2026-03-31,New Zealand Police,serious,8
+2026-03-31,New Zealand Security Intelligence Service,serious,2
+2026-03-31,Oranga Tamariki,critical,136
+2026-03-31,Oranga Tamariki,serious,129
+2026-03-31,Parliamentary Counsel Office,critical,532
+2026-03-31,Parliamentary Counsel Office,serious,344
+2026-03-31,Public Service Commission,critical,499
+2026-03-31,Public Service Commission,moderate,200
+2026-03-31,Public Service Commission,serious,5784
+2026-03-31,Serious Fraud Office,serious,17
+2026-03-31,Social Investment Agency,critical,18
+2026-03-31,Social Investment Agency,serious,8
+2026-03-31,Statistics New Zealand,critical,224
+2026-03-31,Statistics New Zealand,serious,553
+2026-03-31,Te Puni Kōkiri,serious,132
+2026-03-31,Te Tari Whakatau,serious,1539
+2026-03-31,The Treasury,critical,276
+2026-03-31,The Treasury,serious,2807
+2026-03-31,Whaikaha,serious,6
+2026-06-30,Cancer Control Agency,critical,851
+2026-06-30,Cancer Control Agency,serious,7964
+2026-06-30,Charter School Agency,serious,120
+2026-06-30,Crown Law Office,moderate,170
+2026-06-30,Crown Law Office,serious,6298
+2026-06-30,Department of Conservation,critical,1108
+2026-06-30,Department of Conservation,moderate,10
+2026-06-30,Department of Conservation,serious,8555
+2026-06-30,Department of Corrections,critical,27
+2026-06-30,Department of Corrections,serious,1214
+2026-06-30,Department of Internal Affairs,critical,6875
+2026-06-30,Department of Internal Affairs,moderate,1378
+2026-06-30,Department of Internal Affairs,serious,26561
+2026-06-30,Department of the Prime Minister and Cabinet,critical,74
+2026-06-30,Department of the Prime Minister and Cabinet,serious,4161
+2026-06-30,Education Review Office,critical,520
+2026-06-30,Education Review Office,serious,270
+2026-06-30,Financial Markets Authority,critical,75
+2026-06-30,Financial Markets Authority,serious,1717
+2026-06-30,Government Communications Security Bureau,critical,22
+2026-06-30,Government Communications Security Bureau,serious,35
+2026-06-30,Health New Zealand,critical,1105
+2026-06-30,Health New Zealand,serious,6355
+2026-06-30,Inland Revenue Department,critical,10
+2026-06-30,Inland Revenue Department,serious,61
+2026-06-30,Land Information New Zealand,critical,715
+2026-06-30,Land Information New Zealand,moderate,4
+2026-06-30,Land Information New Zealand,serious,3825
+2026-06-30,Ministry for Culture and Heritage,critical,26
+2026-06-30,Ministry for Culture and Heritage,serious,336
+2026-06-30,Ministry for Ethnic Communities,serious,30
+2026-06-30,Ministry for Pacific Peoples,critical,1500
+2026-06-30,Ministry for Pacific Peoples,serious,2022
+2026-06-30,Ministry for Primary Industries,critical,291
+2026-06-30,Ministry for Primary Industries,serious,3776
+2026-06-30,Ministry for Regulation,critical,4
+2026-06-30,Ministry for Regulation,serious,37
+2026-06-30,Ministry for Women,serious,10
+2026-06-30,"Ministry of Business, Innovation and Employment",critical,9412
+2026-06-30,"Ministry of Business, Innovation and Employment",moderate,20
+2026-06-30,"Ministry of Business, Innovation and Employment",serious,26741
+2026-06-30,"Ministry of Cities, Environment, Regions and Transport",critical,1297
+2026-06-30,"Ministry of Cities, Environment, Regions and Transport",moderate,618
+2026-06-30,"Ministry of Cities, Environment, Regions and Transport",serious,8957
+2026-06-30,Ministry of Defence,critical,2
+2026-06-30,Ministry of Defence,serious,10
+2026-06-30,Ministry of Education,critical,6951
+2026-06-30,Ministry of Education,moderate,65
+2026-06-30,Ministry of Education,serious,34146
+2026-06-30,Ministry of Foreign Affairs and Trade,critical,64
+2026-06-30,Ministry of Foreign Affairs and Trade,moderate,18
+2026-06-30,Ministry of Foreign Affairs and Trade,serious,502
+2026-06-30,Ministry of Health,critical,31
+2026-06-30,Ministry of Health,serious,150
+2026-06-30,Ministry of Justice,critical,332
+2026-06-30,Ministry of Justice,serious,2464
+2026-06-30,Ministry of Social Development,critical,3208
+2026-06-30,Ministry of Social Development,moderate,638
+2026-06-30,Ministry of Social Development,serious,6552
+2026-06-30,National Emergency Management Agency,serious,38
+2026-06-30,Natural Hazards Commission,serious,51
+2026-06-30,New Zealand Customs Service,critical,26
+2026-06-30,New Zealand Customs Service,serious,1622
+2026-06-30,New Zealand Defence Force,critical,1914
+2026-06-30,New Zealand Defence Force,moderate,600
+2026-06-30,New Zealand Defence Force,serious,22145
+2026-06-30,New Zealand Police,critical,26
+2026-06-30,New Zealand Police,serious,5
+2026-06-30,New Zealand Security Intelligence Service,serious,2
+2026-06-30,Oranga Tamariki,critical,80
+2026-06-30,Oranga Tamariki,serious,132
+2026-06-30,Parliamentary Counsel Office,critical,3419
+2026-06-30,Parliamentary Counsel Office,serious,438
+2026-06-30,Public Service Commission,critical,1562
+2026-06-30,Public Service Commission,moderate,601
+2026-06-30,Public Service Commission,serious,16234
+2026-06-30,Serious Fraud Office,serious,34
+2026-06-30,Social Investment Agency,serious,4
+2026-06-30,Statistics New Zealand,critical,157
+2026-06-30,Statistics New Zealand,serious,2229
+2026-06-30,Te Puni Kōkiri,serious,3
+2026-06-30,Te Tari Whakatau,serious,14
+2026-06-30,The Treasury,critical,8
+2026-06-30,The Treasury,serious,7008
+2026-06-30,Whaikaha,serious,37
