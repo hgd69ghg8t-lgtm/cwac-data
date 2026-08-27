@@ -185,10 +185,10 @@ tbody tr:hover td{background:var(--surface-2)}
         <select id="scopeSel">
           <option value="gov">Government total</option>
           <option value="sector">Sector</option>
-          <option value="agency">Agency (top movers)</option>
+          <option value="agency">Single agency</option>
         </select>
       </div>
-      <div class="field" id="agencyField" style="display:none">
+      <div class="field" id="agencyField">
         <label for="agencySel">Agency</label>
         <select id="agencySel"></select>
       </div>
@@ -274,6 +274,7 @@ function currentSeries(){
   }
   // agency: show the single selected agency + government reference
   const a = state.agency;
+  if(!a) return [{key:"__gov__", name:"Government total", color:"--accent"}];
   return [
     {key:"__gov__", name:"Government (all)", color:"--muted", ref:true},
     {key:a, name:a, color:"--accent"},
@@ -471,8 +472,11 @@ function populate(){
   ms.innerHTML=METRICS.map(m=>`<option value="${m.id}">${m.label}</option>`).join("");
   ms.value=state.metric;
   const as=document.getElementById("agencySel");
-  as.innerHTML=Object.keys(DATA.by_org).sort().map(o=>`<option value="${o}">${o}</option>`).join("");
-  state.agency=as.value;
+  as.innerHTML='<option value="">— Pick an agency to focus —</option>'+
+    Object.keys(DATA.by_org).sort().map(o=>`<option value="${o}">${o}</option>`).join("");
+  as.value="";
+  state.agency=null;
+  syncAgencyField();
 }
 function syncBasis(){
   const m=METRIC[state.metric];
@@ -492,8 +496,25 @@ function render(){ syncBasis(); updateNote(); drawChart(); drawMovers(); }
 
 document.getElementById("metricSel").addEventListener("change",e=>{state.metric=e.target.value; const m=METRIC[state.metric]; if(!m.norm)state.basis="abs"; else if(state.basis==="abs"&&document.querySelector('#basisSeg button[data-basis="per"]')) {} render();});
 document.getElementById("basisSeg").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b||b.disabled)return; state.basis=b.dataset.basis; render();});
-document.getElementById("scopeSel").addEventListener("change",e=>{state.scope=e.target.value; document.getElementById("agencyField").style.display= state.scope==="agency"?"":"none"; drawChart();});
-document.getElementById("agencySel").addEventListener("change",e=>{state.agency=e.target.value; drawChart();});
+document.getElementById("scopeSel").addEventListener("change",e=>{
+  state.scope=e.target.value;
+  if(state.scope!=="agency"){ document.getElementById("agencySel").value=""; state.agency=null; }
+  syncAgencyField(); drawChart();
+});
+document.getElementById("agencySel").addEventListener("change",e=>{
+  const v=e.target.value;
+  state.agency = v || null;
+  // picking an agency focuses it; clearing returns to government total
+  state.scope = v ? "agency" : "gov";
+  document.getElementById("scopeSel").value = state.scope;
+  syncAgencyField(); drawChart();
+});
+function syncAgencyField(){
+  // the agency picker is always visible; dim it when it isn't the active lens
+  const wrap=document.getElementById("agencyField");
+  const active = state.scope==="agency";
+  wrap.style.opacity = active ? 1 : .72;
+}
 document.getElementById("tableTgl").addEventListener("click",e=>{const w=document.getElementById("tableWrap"); const open=w.classList.toggle("hidden")===false; e.target.textContent=open?"Hide data table":"Show data table"; e.target.setAttribute("aria-expanded",open); if(open)drawTable();});
 
 /* theme toggle */
