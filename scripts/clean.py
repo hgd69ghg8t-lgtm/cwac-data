@@ -242,6 +242,11 @@ def main():
     url_seen = defaultdict(set)    # base_url_key -> set(scan dates seen)
     url_histnames = defaultdict(set)
 
+    # per (scan, base_url) accumulators for the per-site drill-down
+    # (in-current-scope sites only, so every site rolls up under a current agency)
+    site_summ = defaultdict(lambda: defaultdict(float))
+    site_org = {}                  # base_url_key -> (current_org, current_sector)
+
     issues_path = os.path.join(OUT, "issues_long.csv.gz")
     issues_cols = ["scan_date", "audit", "organisation", "sector",
                    "base_url", "url", "rule_id", "impact", "description",
@@ -290,24 +295,25 @@ def main():
                     # summary only counts current-scope agencies
                     if in_scope:
                         sector_of[org] = sector
-                        s = summ[(date, org)]
+                        site_org[key] = (org, sector)
                         a = rec["audit"]
-                        if a == "axe_core":
-                            s["axe_issue_rows"] += 1
-                            s["axe_issues"] += rec["count"]
-                            if rec["impact"] == "serious":
-                                s["axe_serious"] += rec["count"]
-                            elif rec["impact"] == "critical":
-                                s["axe_critical"] += rec["count"]
-                        elif a == "axe_core_template":
-                            s["axe_template_rows"] += 1
-                        elif a == "focus_indicator":
-                            s["focus_issues"] += rec["count"]
-                        elif a == "reflow":
-                            s["reflow_pages"] += 1
-                            s["reflow_issues"] += rec["count"]
-                        elif a == "response_code":
-                            s["broken_urls"] += 1
+                        for s in (summ[(date, org)], site_summ[(date, key)]):
+                            if a == "axe_core":
+                                s["axe_issue_rows"] += 1
+                                s["axe_issues"] += rec["count"]
+                                if rec["impact"] == "serious":
+                                    s["axe_serious"] += rec["count"]
+                                elif rec["impact"] == "critical":
+                                    s["axe_critical"] += rec["count"]
+                            elif a == "axe_core_template":
+                                s["axe_template_rows"] += 1
+                            elif a == "focus_indicator":
+                                s["focus_issues"] += rec["count"]
+                            elif a == "reflow":
+                                s["reflow_pages"] += 1
+                                s["reflow_issues"] += rec["count"]
+                            elif a == "response_code":
+                                s["broken_urls"] += 1
 
             # coverage: pages_scanned (org/sector present in file)
             cols, rows = open_rows(date, "pages_scanned")
@@ -318,7 +324,10 @@ def main():
                     if key in cmap:
                         org, sector = cmap[key]
                         sector_of[org] = sector
-                        summ[(date, org)]["pages_scanned"] += to_int(row.get("number_of_pages"))
+                        site_org[key] = (org, sector)
+                        n_pages = to_int(row.get("number_of_pages"))
+                        summ[(date, org)]["pages_scanned"] += n_pages
+                        site_summ[(date, key)]["pages_scanned"] += n_pages
 
             # language_audit: reading-level metrics (not issues)
             cols, rows = open_rows(date, "language_audit")
@@ -338,6 +347,11 @@ def main():
                     acc[0] += 1
                     acc[1] += fk
                     acc[2] += (smog or 0.0)
+                    site_org[key] = cmap[key]
+                    ss = site_summ[(date, key)]
+                    ss["language_pages"] += 1
+                    ss["_lang_fk_sum"] += fk
+                    ss["_lang_smog_sum"] += (smog or 0.0)
                 for org, (n, sfk, ssmog) in lang_acc.items():
                     if n:
                         summ[(date, org)]["language_pages"] += n
@@ -377,6 +391,33 @@ def main():
 
     _write_csv(os.path.join(OUT, "summary_by_org.csv"),
                ["scan_date", "organisation", "sector"] + metric_cols, org_rows)
+
+    # ----------------------------------------------------------------- #
+    # summary_by_site (wide) — per website x scan_date, for the agency
+    # drill-down. base_url shown in its canonical (30 June 2026) form.
+    # ----------------------------------------------------------------- #
+    site_rows = []
+    for (date, key), s in sorted(site_summ.items()):
+        org, sector = site_org.get(key, ("", ""))
+        lp = s.get("language_pages", 0)
+        rec = {
+            "scan_date": date,
+            "base_url": cdisplay.get(key, key),
+            "organisation": org,
+            "sector": sector,
+        }
+        for m in metric_cols:
+            if m == "language_mean_fk":
+                rec[m] = round(s["_lang_fk_sum"] / lp, 3) if lp else ""
+            elif m == "language_mean_smog":
+                rec[m] = round(s["_lang_smog_sum"] / lp, 3) if lp else ""
+            else:
+                v = s.get(m, 0)
+                rec[m] = int(v) if float(v).is_integer() else v
+        site_rows.append(rec)
+    _write_csv(os.path.join(OUT, "summary_by_site.csv"),
+               ["scan_date", "base_url", "organisation", "sector"] + metric_cols,
+               site_rows)
 
     # ----------------------------------------------------------------- #
     # summary_by_sector (wide) — roll up agencies within a sector
@@ -472,7 +513,7 @@ def main():
                 "in_2026_06_30", "scans_seen", "historical_names"], map_rows)
 
     print("Wrote:")
-    for f in ["issues_long.csv.gz", "summary_by_org.csv",
+    for f in ["issues_long.csv.gz", "summary_by_org.csv", "summary_by_site.csv",
               "summary_by_sector.csv", "summary_totals.csv", "agency_url_map.csv"]:
         p = os.path.join(OUT, f)
         print(f"  data/clean/{f:28s} {os.path.getsize(p):>12,} bytes")
