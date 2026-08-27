@@ -10,6 +10,8 @@ New Zealand government websites.
   `.zip` transparently.
 - `data/clean/` — cleaned, consolidated, date-stamped outputs (below).
 - `scripts/clean.py` — the cleaning pipeline.
+- `scripts/build.py` — one-command rebuild (clean → viz data → embed) with a
+  change summary. See **Adding a scan** below.
 
 ## Merger-aware attribution
 
@@ -52,3 +54,43 @@ Run `python3 scripts/clean.py` to regenerate:
 Not every audit ran every scan (e.g. `unexpected_response_codes` only
 2026-03-31; `focus_indicator` / `language` missing 2025-08-12). Missing audits
 are treated as "no data", never as zero.
+
+## Adding a scan
+
+Scan dates are auto-discovered from the `data/raw/<YYYY-MM-DD>/` folders — no
+code edit is needed to add one.
+
+1. Create `data/raw/<YYYY-MM-DD>/` and drop the scan CSVs in, named
+   `<YYYY-MM-DD>_<audit>.csv` (or `.zip` for the large axe / language audits),
+   matching the existing folders.
+2. Optionally validate it: `python3 scripts/build.py --check <YYYY-MM-DD>`.
+3. Rebuild everything: `python3 scripts/build.py`.
+
+`build.py` runs `clean.py` → `build_viz_data.py` → `embed_data.py` and prints a
+summary of new agencies / sites picked up. The **most recent** scan defines the
+canonical (current) agency structure used for merger-aware attribution.
+
+> `build_viz_data.py` needs pandas (`pip install pandas`); the other scripts are
+> standard-library only.
+
+## Adding a website you become responsible for
+
+Attribution is derived from the data, not a hand-kept list. It comes from the
+newest scan's `<date>_all_base_urls.csv` (columns `organisation,url,sector`).
+List the new site's `url` there against the owning `organisation`, and it is
+attributed automatically. Its trend line **starts at the first scan it appears
+in** — earlier scans stay blank (not zero), so newly-acquired sites show up as
+they appear.
+
+## Publishing the dashboard
+
+`viz/dashboard.html` is self-contained and can be opened directly. To publish it
+as a Claude Artifact, embed a whitespace-spaced copy of the data first:
+
+```
+python3 scripts/embed_data.py --pretty --out /tmp/publish.html
+```
+
+then publish `/tmp/publish.html`. (The committed `dashboard.html` keeps the
+minified data; the spaced copy only works around a publish-time validator that
+false-positives on the dense minified JSON blob.)

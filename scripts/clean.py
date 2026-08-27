@@ -32,6 +32,7 @@ import csv
 import gzip
 import io
 import os
+import re
 import sys
 import unicodedata
 import zipfile
@@ -44,16 +45,25 @@ ROOT = os.path.dirname(HERE)
 RAW = os.path.join(ROOT, "data", "raw")
 OUT = os.path.join(ROOT, "data", "clean")
 
-# Scan dates in chronological order. The LAST one defines the canonical
-# (current) agency structure used for attribution.
-SCANS = [
-    "2025-06-30",
-    "2025-08-12",
-    "2025-09-29",
-    "2025-12-17",
-    "2026-03-31",
-    "2026-06-30",
-]
+# Scan dates, auto-discovered from data/raw/<YYYY-MM-DD>/ folders in
+# chronological order. Adding a new scan is therefore just: drop a new dated
+# folder of CSVs into data/raw/ and re-run — no code edit needed. The LAST
+# (most recent) scan defines the canonical (current) agency structure used for
+# merger-aware attribution.
+_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def discover_scans() -> list[str]:
+    if not os.path.isdir(RAW):
+        raise SystemExit(f"No raw data directory: {RAW}")
+    dates = sorted(d for d in os.listdir(RAW)
+                   if _DATE_RE.match(d) and os.path.isdir(os.path.join(RAW, d)))
+    if not dates:
+        raise SystemExit(f"No YYYY-MM-DD scan folders found under {RAW}")
+    return dates
+
+
+SCANS = discover_scans()
 CANONICAL_SCAN = SCANS[-1]
 
 DESC_MAXLEN = 200  # truncate long descriptions to keep issues_long compact

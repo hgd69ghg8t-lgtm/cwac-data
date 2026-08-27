@@ -138,6 +138,25 @@ for org_name, g in rules.groupby("organisation"):
         lst.append({"r": str(rid), "c": arr})
     by_org_rules[str(org_name)] = lst
 
+# predecessor composition per agency: org -> {predecessor_name: site_count}.
+# Derived from agency_url_map.csv historical_names (the org names a site was
+# scanned under before the merger), dropping the current name. Powers the
+# merger narrative for merged agencies (e.g. MCERT = Environment + Transport +
+# Housing & Urban Development).
+umap = pd.read_csv(f"{CLEAN}/agency_url_map.csv").fillna("")
+by_org_predecessors = {}
+for org_name, g in umap.groupby("current_organisation"):
+    if not str(org_name):
+        continue
+    counts = {}
+    for hn in g["historical_names"]:
+        names = {n.strip() for n in str(hn).split(";") if n.strip()}
+        for n in names - {str(org_name)}:
+            counts[n] = counts.get(n, 0) + 1
+    if counts:
+        by_org_predecessors[str(org_name)] = dict(
+            sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])))
+
 data = {
     "scans": scans,
     "metrics_order": allm,
@@ -149,6 +168,7 @@ data = {
     "by_site": by_site,
     "by_org_impact": by_org_impact,
     "by_org_rules": by_org_rules,
+    "by_org_predecessors": by_org_predecessors,
     "org_sector": {str(r["organisation"]): str(r["sector"])
                    for _, r in org.drop_duplicates("organisation").iterrows()},
 }
