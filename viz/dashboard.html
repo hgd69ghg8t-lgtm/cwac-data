@@ -104,6 +104,7 @@ svg{display:block; width:100%; height:auto; overflow:visible}
 .mbar{position:absolute; top:3px; height:16px; border-radius:4px}
 .mval{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:12.5px; text-align:right; font-weight:500}
 .mval.good{color:var(--good)} .mval.bad{color:var(--bad)}
+.movers .tgl{margin-top:10px}
 
 /* per-site drill-down */
 .sitegrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(228px,1fr)); gap:12px}
@@ -470,7 +471,7 @@ function drawMovers(){
   rows.sort((a,b)=> a.delta-b.delta);
   const good=cssv("--good"), bad=cssv("--bad");
   const half=r=>Math.max(2,Math.abs(r.delta)/maxAbs*48); // % of half-width
-  wrap.innerHTML=rows.map(r=>{
+  const moverRow=r=>{
     const improved = m.better==="down" ? r.delta<0 : r.delta>0;
     const col=improved?good:bad;
     const w=half(r);
@@ -483,7 +484,23 @@ function drawMovers(){
       <div class="mbar-track"><div class="mbar-mid"></div><div class="mbar" style="${style}"></div></div>
       <div class="mval ${improved?'good':'bad'}">${sign}${fmtDelta(r.delta)}</div>
     </div>`;
-  }).join("");
+  };
+  // Show the top 5 (current order = most improved first); accordion the rest.
+  const TOP=5, shown=rows.slice(0,TOP), rest=rows.slice(TOP);
+  let html=shown.map(moverRow).join("");
+  if(rest.length){
+    html+=`<div id="moversRest" class="hidden">${rest.map(moverRow).join("")}</div>`+
+          `<button class="tgl" id="moversTgl" aria-expanded="false" aria-controls="moversRest">Show ${rest.length} more ${rest.length===1?"agency":"agencies"}</button>`;
+  }
+  wrap.innerHTML=html;
+  const tgl=document.getElementById("moversTgl");
+  if(tgl){
+    tgl.addEventListener("click",()=>{
+      const open=document.getElementById("moversRest").classList.toggle("hidden")===false;
+      tgl.setAttribute("aria-expanded",open);
+      tgl.textContent=open?"Show fewer":`Show ${rest.length} more ${rest.length===1?"agency":"agencies"}`;
+    });
+  }
 }
 function perPage(n,d){ const m=METRIC[state.metric]; const v=raw(n,d,state.metric); if(v===null)return null; if(!m.norm) return v; const p=pages(n,d); return p? v/p : null; }
 function fmtDelta(v){ const m=METRIC[state.metric]; if(m.norm) return (Math.round(v*100)/100).toFixed(2); return Math.round(v).toLocaleString(); }
