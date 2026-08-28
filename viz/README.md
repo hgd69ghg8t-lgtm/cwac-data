@@ -23,10 +23,11 @@ python3 scripts/build_viz_data.py  # rebuild viz/data.json
 
 ## Publishing (GitHub Pages)
 
-`../docs/index.html` is the published copy of `dashboard.html`, served by GitHub
-Pages (Settings → Pages → Deploy from a branch → `/docs`). After changing the
-dashboard, refresh the copy:
+`dashboard.html` is the single source of truth. `.github/workflows/pages.yml`
+builds the published site from it in CI (copies it to `index.html`) and deploys
+to GitHub Pages on every push that changes `viz/dashboard.html` — **no manual
+copy step.** Pages must be enabled once (Settings → Pages → Source: *GitHub
+Actions*); after that it is automatic. The workflow can also be run on demand
+from **Actions → Deploy dashboard to GitHub Pages → Run workflow**.
 
-```
-cp viz/dashboard.html docs/index.html
-```
+Live at https://hgd69ghg8t-lgtm.github.io/cwac-data/
