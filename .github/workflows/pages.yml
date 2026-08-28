@@ -1,14 +1,19 @@
 name: Deploy dashboard to GitHub Pages
 
-# Publishes docs/ (the self-contained dashboard) to GitHub Pages.
-# configure-pages with enablement:true turns Pages on automatically the
-# first time this runs, so no repo Settings change is needed.
+# Publishes the accessibility dashboard to GitHub Pages.
+#
+# Single source of truth: viz/dashboard.html. This workflow builds the
+# published site from it in CI (copying it to index.html), so there is no
+# committed copy to keep in sync — edit viz/dashboard.html and push.
+#
+# Pages must be enabled once (Settings -> Pages -> Source: GitHub Actions);
+# configure-pages with enablement:true keeps it on thereafter.
 
 on:
   push:
     branches: ["claude/csv-cleaning-visualization-4w3ay0"]
     paths:
-      - "docs/**"
+      - "viz/dashboard.html"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -31,6 +36,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Build site from the dashboard source
+        run: |
+          mkdir -p _site
+          cp viz/dashboard.html _site/index.html
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
@@ -38,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
