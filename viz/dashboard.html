@@ -9,11 +9,11 @@
 :root{
   color-scheme: light;
   --plane:#f4f6f7; --surface:#ffffff; --surface-2:#eef1f2;
-  --ink:#16191c; --ink-2:#535a60; --muted:#878f95;
-  --grid:#e7eaec; --axis:#c6ccd0; --border:rgba(20,24,27,.11);
+  --ink:#16191c; --ink-2:#535a60; --muted:#595f66;
+  --grid:#e7eaec; --axis:#c6ccd0; --border:rgba(20,24,27,.11); --control-border:#b7bec4;
   --accent:#0f766e; --accent-soft:#e2f1ef;
-  --good:#1f8f4e; --good-soft:#e6f3ec; --bad:#c0493f; --bad-soft:#f7eae8;
-  --crit:#b23a2f; --serious:#c67a3e;
+  --good:#12703a; --good-soft:#e6f3ec; --bad:#a83529; --bad-soft:#f7eae8;
+  --crit:#b23a2f; --serious:#c67a3e; --warn:#985317;
   /* muted, harmonious categorical steps (calm, distinguishable) */
   --s1:#0f766e; --s2:#3f6e8c; --s3:#8a6d3b; --s4:#5f7a4f;
   --s5:#8a5a72; --s6:#356c68; --s7:#6d5c93; --s8:#b06a4f;
@@ -33,7 +33,8 @@ body{
 .topnav{display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding-bottom:14px; margin-bottom:22px; border-bottom:1px solid var(--border)}
 .topnav .brand{font-weight:620; color:var(--ink); text-decoration:none; letter-spacing:.02em; font-size:15px}
 .navlinks{display:flex; gap:20px}
-.navlinks a{color:var(--ink-2); text-decoration:none; font-size:14px}
+.navlinks{align-items:center}
+.navlinks a{color:var(--ink-2); text-decoration:none; font-size:14px; display:inline-flex; align-items:center; min-height:24px; padding:2px 2px}
 .navlinks a:hover{color:var(--ink)}
 .navlinks a[aria-current="page"]{color:var(--accent); font-weight:600}
 .masthead{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:22px}
@@ -67,10 +68,10 @@ h2{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-se
 .controls{display:flex; gap:18px 22px; flex-wrap:wrap; align-items:flex-end; margin-bottom:16px; padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:12px}
 .field{display:flex; flex-direction:column; gap:6px}
 .field > label{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
-select{font:inherit; font-size:13.5px; color:var(--ink); background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:7px 30px 7px 11px; cursor:pointer; appearance:none;
+select{font:inherit; font-size:13.5px; color:var(--ink); background:var(--surface-2); border:1px solid var(--control-border); border-radius:8px; padding:7px 30px 7px 11px; cursor:pointer; appearance:none;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%238b93a1' stroke-width='1.5' stroke-linecap='round'/></svg>"); background-repeat:no-repeat; background-position:right 11px center}
-select:focus-visible, .seg button:focus-visible, .tgl:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.seg{display:inline-flex; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:3px}
+select:focus-visible, .seg button:focus-visible, .tgl:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
+.seg{display:inline-flex; background:var(--surface-2); border:1px solid var(--control-border); border-radius:8px; padding:3px}
 .seg button{font:inherit; font-size:13px; border:0; background:transparent; color:var(--ink-2); padding:6px 13px; border-radius:6px; cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.08); font-weight:500}
 
@@ -136,7 +137,7 @@ svg{display:block; width:100%; height:auto; overflow:visible}
 .audit-h h3{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-weight:620; font-size:17px; margin:0; letter-spacing:-.01em}
 .audit-h .u{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:11px; color:var(--muted); letter-spacing:.03em}
 .audit-cov{font-size:12px; color:var(--muted); margin:0 0 14px}
-.audit-cov.warn{color:var(--serious)}
+.audit-cov.warn{color:var(--warn)}
 .audit-top{display:grid; grid-template-columns:minmax(210px,300px) 1fr; gap:16px; align-items:center; margin-bottom:16px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow)}
 .audit-tot .k{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
 .audit-tot .v{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:30px; font-weight:620; line-height:1.05; margin-top:3px}
@@ -177,8 +178,12 @@ th,td{padding:8px 11px; text-align:right; white-space:nowrap; border-bottom:1px 
 th:first-child,td:first-child{text-align:left; position:sticky; left:0; background:var(--surface)}
 thead th{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:500; position:sticky; top:0; background:var(--surface); z-index:1}
 tbody tr:hover td{background:var(--surface-2)}
-.tgl{background:none; border:0; color:var(--accent); font:inherit; font-size:13px; cursor:pointer; padding:4px 0; text-decoration:underline; text-underline-offset:3px}
+.tgl{background:none; border:0; color:var(--accent); font:inherit; font-size:13px; cursor:pointer; padding:6px 2px; min-height:24px; display:inline-flex; align-items:center; text-decoration:underline; text-underline-offset:3px}
 .hidden{display:none !important}
+.vh{position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+.skip-link{position:absolute; left:8px; top:-48px; background:var(--surface); color:var(--accent); border:1px solid var(--control-border); border-radius:8px; padding:9px 13px; font-size:14px; text-decoration:none; z-index:60; transition:top .12s}
+.skip-link:focus{top:8px}
+.cv{content-visibility:auto; contain-intrinsic-size:auto 480px}
 
 .footnote{margin-top:34px; padding-top:16px; border-top:1px solid var(--border); color:var(--muted); font-size:12px; max-width:70ch}
 .footnote b{color:var(--ink-2); font-weight:500}
@@ -209,7 +214,9 @@ tbody tr:hover td{background:var(--surface-2)}
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to main content</a>
 <div class="wrap">
+  <header>
   <nav class="topnav" aria-label="Primary">
     <a class="brand" href="./">CWAC</a>
     <div class="navlinks">
@@ -220,7 +227,9 @@ tbody tr:hover td{background:var(--surface-2)}
   <div class="masthead">
     <h1>Centralised Web Accessibility Checker progress</h1>
   </div>
+  </header>
 
+  <main id="main">
   <div class="hero" id="hero"></div>
 
   <div class="section">
@@ -263,7 +272,7 @@ tbody tr:hover td{background:var(--surface-2)}
     <div id="agencyReport"></div>
   </div>
 
-  <div class="section">
+  <div class="section cv">
     <div class="section-head">
       <h2>Who moved the most</h2>
       <span class="note">Change in the selected per-page measure, first scan to last. <span style="color:var(--good)">Green = improved</span> · <span style="color:var(--bad)">red = worse</span>.</span>
@@ -271,17 +280,20 @@ tbody tr:hover td{background:var(--surface-2)}
     <div class="card movers" id="movers"></div>
   </div>
 
-  <div class="section">
+  <div class="section cv">
     <div class="section-head">
       <h2>The numbers</h2>
-      <button class="tgl" id="tableTgl" aria-expanded="false">Show data table</button>
+      <button class="tgl" id="tableTgl" aria-expanded="false" aria-controls="tableWrap">Show data table</button>
     </div>
     <div class="tablewrap hidden" id="tableWrap"></div>
   </div>
+  </main>
 
+  <footer>
   <p class="footnote">
     Source: <a href="https://catalogue.data.govt.nz/dataset/centralised-web-accessibility-checker-cwac-monitoring-programme" target="_blank" rel="noopener">CWAC Programme data</a>
   </p>
+  </footer>
 </div>
 
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
@@ -377,7 +389,7 @@ function drawChart(){
   // collect all values for y-scale
   let vals=[];
   series.forEach(s=>{const n=nodeFor(s.key); SCANS.forEach(d=>{const v=value(n,d); if(v!==null&&isFinite(v))vals.push(v);});});
-  if(!vals.length){ const t=el("text",{x:W/2,y:H/2,"text-anchor":"middle",class:"axislab"}); t.textContent="No data for this measure"; svg.appendChild(t); document.getElementById("legend").innerHTML=""; return; }
+  if(!vals.length){ const t=el("text",{x:W/2,y:H/2,"text-anchor":"middle",class:"axislab"}); t.textContent="No data for this measure"; svg.appendChild(t); document.getElementById("legend").innerHTML=""; svg.setAttribute("aria-label","No data for the selected measure."); return; }
   let ymax=Math.max(...vals), ymin=Math.min(...vals,0);
   const m=METRIC[state.metric];
   if(m.id==="language_mean_fk"){ ymin=Math.min(...vals)-0.5; ymax=Math.max(...vals)+0.5; }
@@ -457,6 +469,16 @@ function drawChart(){
     const mark = s.ref? '<span class="sw" style="background:'+col+';opacity:.5"></span>' : '<span class="dot" style="background:'+col+'"></span>';
     return '<span class="lg">'+mark+(s.name)+(s.ref?' (reference)':'')+'</span>';
   }).join("");
+
+  // accessible summary of the current view (the data table below is the full equivalent)
+  const summary = series.filter(s=>!s.ref).map(s=>{
+    const n=nodeFor(s.key); let fv=null,lv=null,fd,ld;
+    SCANS.forEach(d=>{const v=value(n,d); if(v!==null&&isFinite(v)){ if(fv===null){fv=v;fd=d;} lv=v; ld=d; }});
+    if(fv===null) return s.name+": no data";
+    const dir = lv<fv?"decreasing":(lv>fv?"increasing":"flat");
+    return `${s.name}: ${fmtVal(fv)} in ${fmtDate(fd)} to ${fmtVal(lv)} in ${fmtDate(ld)}, ${dir}`;
+  }).join("; ");
+  svg.setAttribute("aria-label", `Line chart of ${METRIC[state.metric].label} (${unit()}). ${summary}. Full figures are in the data table below.`);
 }
 function niceMax(v){ if(v<=0)return 1; const p=Math.pow(10,Math.floor(Math.log10(v))); const n=v/p; let s=n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10; return s*p; }
 function yticks(a,b,n){const out=[];for(let i=0;i<=n;i++)out.push(a+(b-a)*i/n);return out;}
@@ -573,9 +595,9 @@ function overviewTable(org,sites){
     return `<td class="num"><span class="cell">${arw}${fmtM(l.v,c)}</span></td>`;
   };
   let h=`<div class="ov-cap">Latest value per site, with change since the site's first scan (${'↓'} good where fewer is better; reading level lower is plainer). Sorted by accessibility issues per page.</div>
-  <div class="tablewrap"><table class="ov"><thead><tr><th class="site">Site</th>${OVCOLS.map(c=>`<th class="num">${c.label}</th>`).join("")}</tr></thead><tbody>`;
-  keys.forEach(u=>{ h+=`<tr><td class="site" title="${esc(u)}">${esc(u)}</td>${OVCOLS.map(c=>cell(sites[u],c)).join("")}</tr>`; });
-  h+=`<tr class="total"><td class="site">All ${keys.length} sites</td>${OVCOLS.map(c=>cell(orgNode,c)).join("")}</tr>`;
+  <div class="tablewrap"><table class="ov"><thead><tr><th scope="col" class="site">Site</th>${OVCOLS.map(c=>`<th scope="col" class="num">${c.label}</th>`).join("")}</tr></thead><tbody>`;
+  keys.forEach(u=>{ h+=`<tr><th scope="row" class="site" title="${esc(u)}">${esc(u)}</th>${OVCOLS.map(c=>cell(sites[u],c)).join("")}</tr>`; });
+  h+=`<tr class="total"><th scope="row" class="site">All ${keys.length} sites</th>${OVCOLS.map(c=>cell(orgNode,c)).join("")}</tr>`;
   h+=`</tbody></table></div>`;
   return h;
 }
@@ -719,9 +741,9 @@ function drawHero(){
 function drawTable(){
   const cols=["pages_scanned","axe_issues","axe_serious","axe_critical","focus_issues","reflow_pages","broken_urls","language_mean_fk"];
   const head=["Scan","Pages","Issues","Serious","Critical","Focus","Reflow pg","Broken","Read. lvl"];
-  let html="<table><thead><tr>"+head.map(h=>"<th>"+h+"</th>").join("")+"</tr></thead><tbody>";
+  let html="<table><caption class='vh'>Government-wide totals for every measure, by scan date — the data behind the trend chart above.</caption><thead><tr>"+head.map((h,i)=>"<th scope='col'"+(i===0?"":" class='num'")+">"+h+"</th>").join("")+"</tr></thead><tbody>";
   SCANS.forEach(d=>{
-    html+="<tr><td>"+fmtDate(d)+"</td>"+cols.map(c=>{const v=raw(DATA.totals,d,c); return "<td class='tnum'>"+(v===null||v===undefined?"—":(c==="language_mean_fk"?v.toFixed(1):v.toLocaleString()))+"</td>";}).join("")+"</tr>";
+    html+="<tr><th scope='row'>"+fmtDate(d)+"</th>"+cols.map(c=>{const v=raw(DATA.totals,d,c); return "<td class='tnum'>"+(v===null||v===undefined?"—":(c==="language_mean_fk"?v.toFixed(1):v.toLocaleString()))+"</td>";}).join("")+"</tr>";
   });
   html+="</tbody></table>";
   document.getElementById("tableWrap").innerHTML=html;
@@ -753,7 +775,8 @@ function updateNote(){
   el.textContent = m.norm ? (state.basis==="per"?"Lower is better · issues per page normalises for scan size":"Raw totals — affected by how many pages were scanned")
                           : (m.id==="pages_scanned"?"Coverage of the scan (higher = more thorough)":"Average reading grade level (lower = plainer language)");
 }
-function render(){ syncBasis(); updateNote(); drawChart(); drawAgencyReport(); drawMovers(); }
+const idle = window.requestIdleCallback || (f=>setTimeout(f,1));
+function render(){ syncBasis(); updateNote(); drawChart(); drawAgencyReport(); idle(drawMovers); }
 
 document.getElementById("metricSel").addEventListener("change",e=>{state.metric=e.target.value; const m=METRIC[state.metric]; if(!m.norm)state.basis="abs"; else if(state.basis==="abs"&&document.querySelector('#basisSeg button[data-basis="per"]')) {} render();});
 document.getElementById("basisSeg").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b||b.disabled)return; state.basis=b.dataset.basis; render();});
@@ -771,13 +794,21 @@ document.getElementById("agencySel").addEventListener("change",e=>{
   syncAgencyField(); drawChart(); drawAgencyReport();
 });
 function syncAgencyField(){
-  // the agency picker is always visible; dim it when it isn't the active lens
+  // the agency picker is always visible; mark (not dim) when it isn't the active lens,
+  // so label/select text keeps full contrast (WCAG 1.4.3).
   const wrap=document.getElementById("agencyField");
   const active = state.scope==="agency";
-  wrap.style.opacity = active ? 1 : .72;
+  wrap.style.opacity = 1;
 }
 document.getElementById("tableTgl").addEventListener("click",e=>{const w=document.getElementById("tableWrap"); const open=w.classList.toggle("hidden")===false; e.target.textContent=open?"Hide data table":"Show data table"; e.target.setAttribute("aria-expanded",open); if(open)drawTable();});
 
+// Dismiss the chart tooltip with Escape (WCAG 2.2 SC 1.4.13).
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    const t=document.getElementById("tip"); if(t) t.style.opacity=0;
+    const c=document.querySelector("#chart .crosshair"); if(c) c.style.opacity=0;
+  }
+});
 populate(); drawHero(); render();
 // Re-render the width-aware chart (and per-agency sparklines) after layout changes.
 let _rz;
