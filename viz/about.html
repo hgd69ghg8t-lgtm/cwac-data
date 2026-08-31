@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>About the data — CWAC</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How to read the CWAC accessibility datasets and measures, in plain language.">
+<style>
+:root{
+  color-scheme: light;
+  --plane:#f4f6f7; --surface:#ffffff; --surface-2:#eef1f2;
+  --ink:#16191c; --ink-2:#535a60; --muted:#878f95;
+  --grid:#e7eaec; --axis:#c6ccd0; --border:rgba(20,24,27,.11);
+  --accent:#0f766e; --accent-soft:#e2f1ef;
+  --good:#1f8f4e; --bad:#c0493f;
+  --shadow: 0 1px 2px rgba(20,24,27,.05), 0 3px 12px rgba(20,24,27,.05);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--plane); color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.wrap{max-width:820px; margin:0 auto; padding:28px 20px 80px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+
+/* nav (matches the dashboard) */
+.topnav{display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding-bottom:14px; margin-bottom:26px; border-bottom:1px solid var(--border)}
+.topnav .brand{font-weight:620; color:var(--ink); text-decoration:none; letter-spacing:.02em; font-size:15px}
+.navlinks{display:flex; gap:20px}
+.navlinks a{color:var(--ink-2); text-decoration:none; font-size:14px}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--accent); font-weight:600}
+
+h1{font-weight:620; font-size:clamp(26px,4vw,36px); line-height:1.08; margin:0 0 10px; letter-spacing:-.01em; text-wrap:balance}
+.lead{color:var(--ink-2); font-size:16px; max-width:66ch; margin:0 0 22px}
+h2{font-weight:620; font-size:19px; margin:34px 0 10px; letter-spacing:-.01em}
+p{max-width:70ch}
+a{color:var(--accent)}
+.source{display:block; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:10px; padding:14px 16px; box-shadow:var(--shadow); margin:0 0 8px; max-width:none}
+.source .k{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600}
+.source a{font-weight:600; text-underline-offset:2px}
+.note{color:var(--muted); font-size:13px; margin:6px 0 0}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface); box-shadow:var(--shadow); margin:12px 0}
+table{border-collapse:collapse; width:100%; font-size:14px}
+th,td{padding:10px 14px; text-align:left; border-bottom:1px solid var(--grid); vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+thead th{font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); font-weight:600; white-space:nowrap}
+td .term{font-weight:600; color:var(--ink)}
+.better{white-space:nowrap; font-weight:600; font-size:13px}
+.better.down{color:var(--good)} .better.up{color:var(--accent)}
+.plain li{margin:6px 0; max-width:70ch}
+.plain b{font-weight:600}
+.footnote{margin-top:36px; padding-top:16px; border-top:1px solid var(--border); color:var(--muted); font-size:13px}
+.footnote a{color:var(--accent); text-underline-offset:2px}
+@media (max-width:560px){ .wrap{padding:20px 14px 64px} .navlinks{gap:14px} }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="topnav" aria-label="Primary">
+    <a class="brand" href="./">CWAC</a>
+    <div class="navlinks">
+      <a href="./">Dashboard</a>
+      <a href="about.html" aria-current="page">About the data</a>
+    </div>
+  </nav>
+
+  <h1>About the data</h1>
+  <p class="lead">The Centralised Web Accessibility Checker (CWAC) automatically checks New Zealand
+  government websites for accessibility problems and repeats the scan over time. The dashboard tracks
+  whether things are getting better. This page explains, in plain language, where the data comes from
+  and how to read each measure.</p>
+
+  <div class="source">
+    <div class="k">Source</div>
+    <a href="https://catalogue.data.govt.nz/dataset/centralised-web-accessibility-checker-cwac-monitoring-programme" target="_blank" rel="noopener">CWAC Monitoring Programme data — data.govt.nz</a>
+    <p class="note">The dashboard is built from cleaned versions of this open dataset. Nothing here is
+    manually edited — the numbers come straight from the automated scans.</p>
+  </div>
+
+  <h2>The measures</h2>
+  <p>Each scan runs a set of automated checks. These are the measures you can pick on the dashboard.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Measure</th><th>What it means</th><th>Better when</th></tr></thead>
+      <tbody>
+        <tr><td><span class="term">Pages scanned</span></td><td>How many pages the checker looked at in that scan. It shows how broad the scan was, not a problem count.</td><td class="better up">higher</td></tr>
+        <tr><td><span class="term">Serious + critical issues</span></td><td>Accessibility failures found by the axe-core checker, counting only the two most serious levels. These are the ones most likely to block someone.</td><td class="better down">fewer</td></tr>
+        <tr><td><span class="term">Serious / Critical</span></td><td>The same issues split by how severe they are. Critical issues are the most blocking; serious ones are still important.</td><td class="better down">fewer</td></tr>
+        <tr><td><span class="term">Focus-indicator issues</span></td><td>Whether you can see which thing is selected as you move through a page with the keyboard (the visible outline). Missing outlines make keyboard use hard.</td><td class="better down">fewer</td></tr>
+        <tr><td><span class="term">Reflow at 320&nbsp;px</span></td><td>Pages that break — forcing you to scroll sideways — when the screen is very narrow or the text is zoomed in. Counts the pages that fail.</td><td class="better down">fewer</td></tr>
+        <tr><td><span class="term">Broken / blocked links</span></td><td>Links that returned an error or an unexpected response when followed.</td><td class="better down">fewer</td></tr>
+        <tr><td><span class="term">Reading level</span></td><td>Roughly the school year of education needed to read the text comfortably (Flesch–Kincaid grade). Plainer writing reaches more people.</td><td class="better down">lower</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Reading the numbers</h2>
+  <ul class="plain">
+    <li><b>Compare per page, not totals.</b> Scans covered very different numbers of pages over time
+    (about 23,000 pages early on, about 55,000 by June 2026). To judge real progress, use the
+    <b>per-page</b> view so bigger scans don’t look like more problems.</li>
+    <li><b>Blank points mean “not measured”, never zero.</b> Not every check ran in every scan. A gap in
+    a line just means that audit didn’t run then (the focus-indicator check ran in three of six scans;
+    broken links in one).</li>
+    <li><b>Agencies and mergers.</b> Government agencies merge and rename over time. Every website is
+    credited to the agency that owns it <b>today</b> (as at 30 June 2026), so a merged agency keeps one
+    continuous trend line back through its predecessors. 45 agencies are tracked.</li>
+  </ul>
+
+  <h2>The datasets</h2>
+  <p>The dashboard reads a set of cleaned tables derived from the source data above. Each one answers a
+  different question:</p>
+  <ul class="plain">
+    <li><b>Government totals</b> — one row per scan: the country-wide headline numbers.</li>
+    <li><b>By agency</b> — each agency’s numbers over time (the main trend lines).</li>
+    <li><b>By website</b> — the same, drilled down to individual sites an agency owns.</li>
+    <li><b>By sector</b> — groups of agencies (e.g. public service departments, crown entities) over time.</li>
+    <li><b>Impact split</b> — for each agency, how issues break down into critical / serious / moderate.</li>
+    <li><b>Top failing rules</b> — for each agency, which specific WCAG checks fail most often.</li>
+    <li><b>All issues</b> — the full detail: one row for every individual issue found.</li>
+    <li><b>Agency ↔ website map</b> — which agency owns each website, plus its historical names.</li>
+  </ul>
+
+  <p class="footnote">Source: <a href="https://catalogue.data.govt.nz/dataset/centralised-web-accessibility-checker-cwac-monitoring-programme" target="_blank" rel="noopener">CWAC Programme data</a></p>
+</div>
+
+</body>
+</html>
