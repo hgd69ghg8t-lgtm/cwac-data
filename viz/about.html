@@ -9,10 +9,10 @@
 :root{
   color-scheme: light;
   --plane:#f4f6f7; --surface:#ffffff; --surface-2:#eef1f2;
-  --ink:#16191c; --ink-2:#535a60; --muted:#878f95;
-  --grid:#e7eaec; --axis:#c6ccd0; --border:rgba(20,24,27,.11);
+  --ink:#16191c; --ink-2:#535a60; --muted:#595f66;
+  --grid:#e7eaec; --axis:#c6ccd0; --border:rgba(20,24,27,.11); --control-border:#b7bec4;
   --accent:#0f766e; --accent-soft:#e2f1ef;
-  --good:#1f8f4e; --bad:#c0493f;
+  --good:#12703a; --bad:#a83529;
   --shadow: 0 1px 2px rgba(20,24,27,.05), 0 3px 12px rgba(20,24,27,.05);
 }
 *{box-sizing:border-box}
@@ -27,10 +27,14 @@ body{
 /* nav (matches the dashboard) */
 .topnav{display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding-bottom:14px; margin-bottom:26px; border-bottom:1px solid var(--border)}
 .topnav .brand{font-weight:620; color:var(--ink); text-decoration:none; letter-spacing:.02em; font-size:15px}
-.navlinks{display:flex; gap:20px}
-.navlinks a{color:var(--ink-2); text-decoration:none; font-size:14px}
+.navlinks{display:flex; gap:20px; align-items:center}
+.navlinks a{color:var(--ink-2); text-decoration:none; font-size:14px; display:inline-flex; align-items:center; min-height:24px; padding:2px 2px}
 .navlinks a:hover{color:var(--ink)}
 .navlinks a[aria-current="page"]{color:var(--accent); font-weight:600}
+a:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
+.skip-link{position:absolute; left:8px; top:-48px; background:var(--surface); color:var(--accent); border:1px solid var(--control-border); border-radius:8px; padding:9px 13px; font-size:14px; text-decoration:none; z-index:60; transition:top .12s}
+.skip-link:focus{top:8px}
+.vh{position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
 
 h1{font-weight:620; font-size:clamp(26px,4vw,36px); line-height:1.08; margin:0 0 10px; letter-spacing:-.01em; text-wrap:balance}
 .lead{color:var(--ink-2); font-size:16px; margin:0 0 22px; max-width:none}
@@ -59,7 +63,9 @@ td .term{font-weight:600; color:var(--ink)}
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to main content</a>
 <div class="wrap">
+  <header>
   <nav class="topnav" aria-label="Primary">
     <a class="brand" href="./">CWAC</a>
     <div class="navlinks">
@@ -67,7 +73,9 @@ td .term{font-weight:600; color:var(--ink)}
       <a href="about.html" aria-current="page">About the data</a>
     </div>
   </nav>
+  </header>
 
+  <main id="main">
   <h1>About the data</h1>
   <p class="lead">The Centralised Web Accessibility Checker (CWAC) automatically checks New Zealand
   government websites for accessibility problems and repeats the scan over time. The dashboard tracks
@@ -85,7 +93,7 @@ td .term{font-weight:600; color:var(--ink)}
   <p>Each scan runs a set of automated checks. These are the measures you can pick on the dashboard.</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Measure</th><th>What it means</th><th>Better when</th></tr></thead>
+      <thead><tr><th scope="col">Measure</th><th scope="col">What it means</th><th scope="col">Better when</th></tr></thead>
       <tbody>
         <tr><td><span class="term">Pages scanned</span></td><td>How many pages the checker looked at in that scan. It shows how broad the scan was, not a problem count.</td><td class="better up">higher</td></tr>
         <tr><td><span class="term">Serious + critical issues</span></td><td>Accessibility failures found by the axe-core checker, counting only the two most serious levels. These are the ones most likely to block someone.</td><td class="better down">fewer</td></tr>
@@ -124,8 +132,11 @@ td .term{font-weight:600; color:var(--ink)}
     <li><b>All issues</b> — the full detail: one row for every individual issue found.</li>
     <li><b>Agency ↔ website map</b> — which agency owns each website, plus its historical names.</li>
   </ul>
+  </main>
 
+  <footer>
   <p class="footnote">Source: <a href="https://catalogue.data.govt.nz/dataset/centralised-web-accessibility-checker-cwac-monitoring-programme" target="_blank" rel="noopener">CWAC Programme data</a></p>
+  </footer>
 </div>
 
 </body>
