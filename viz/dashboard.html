@@ -8,16 +8,18 @@
 <style>
 :root{
   color-scheme: light;
-  --plane:#f4f6f7; --surface:#ffffff; --surface-2:#eef1f2;
-  --ink:#16191c; --ink-2:#535a60; --muted:#595f66;
-  --grid:#e7eaec; --axis:#c6ccd0; --border:rgba(20,24,27,.11); --control-border:#b7bec4;
-  --accent:#0f766e; --accent-soft:#e2f1ef;
+  /* CWAC palette — white/light/bright/medium/dark/black; only accessible pairings used */
+  --plane:#ffffff; --surface:#ffffff; --surface-2:#eaf6fb;
+  --ink:#1c304a; --ink-2:#046b99; --muted:#046b99;
+  --grid:#dbeef7; --axis:#9cc3d6; --border:rgba(28,48,74,.14); --control-border:#046b99;
+  --accent:#046b99; --accent-soft:#b3efff;
   --good:#12703a; --good-soft:#e6f3ec; --bad:#a83529; --bad-soft:#f7eae8;
-  --crit:#b23a2f; --serious:#c67a3e; --warn:#985317;
-  /* muted, harmonious categorical steps (calm, distinguishable) */
-  --s1:#0f766e; --s2:#3f6e8c; --s3:#8a6d3b; --s4:#5f7a4f;
-  --s5:#8a5a72; --s6:#356c68; --s7:#6d5c93; --s8:#b06a4f;
-  --shadow: 0 1px 2px rgba(20,24,27,.05), 0 3px 12px rgba(20,24,27,.05);
+  /* dark data panel (trend chart + impact bars) */
+  --panel:#1c304a; --panel-ink:#ffffff; --panel-ink-2:#b3efff;
+  --panel-grid:rgba(255,255,255,.14); --panel-axis:rgba(179,239,255,.55);
+  /* chart series on the dark panel (bright / light / white), differentiated by dash too */
+  --c1:#00cfff; --c2:#b3efff; --c3:#ffffff;
+  --shadow: 0 1px 2px rgba(20,24,27,.06), 0 3px 12px rgba(20,24,27,.06);
 }
 *{box-sizing:border-box}
 body{
@@ -76,19 +78,19 @@ select:focus-visible, .seg button:focus-visible, .tgl:focus-visible, a:focus-vis
 .seg button[aria-pressed="true"]{background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.08); font-weight:500}
 
 /* chart */
-.chartcard{padding:18px 18px 12px}
+.chartcard{padding:18px 18px 12px; background:var(--panel); border-color:var(--panel)}
 .legend{display:flex; flex-wrap:wrap; gap:10px 16px; margin:2px 4px 12px}
-.lg{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-2); cursor:default}
+.lg{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--panel-ink-2); cursor:default}
 .lg .sw{width:22px; height:3px; border-radius:2px; flex:none}
 .lg .dot{width:9px;height:9px;border-radius:50%;flex:none}
 svg{display:block; width:100%; height:auto; overflow:visible}
-.axislab{fill:var(--muted); font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:11px}
-.gridline{stroke:var(--grid); stroke-width:1}
-.axisline{stroke:var(--axis); stroke-width:1}
+.axislab{fill:var(--panel-ink-2); font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:11px}
+.gridline{stroke:var(--panel-grid); stroke-width:1}
+.axisline{stroke:var(--panel-axis); stroke-width:1}
 .dline{fill:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round}
-.dmark{stroke:var(--surface); stroke-width:2}
+.dmark{stroke:var(--panel); stroke-width:2}
 .dlabel{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:11px; font-weight:500}
-.crosshair{stroke:var(--axis); stroke-width:1; stroke-dasharray:3 3}
+.crosshair{stroke:var(--panel-axis); stroke-width:1; stroke-dasharray:3 3}
 .hit{fill:transparent; cursor:crosshair}
 
 /* tooltip */
@@ -137,7 +139,7 @@ svg{display:block; width:100%; height:auto; overflow:visible}
 .audit-h h3{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-weight:620; font-size:17px; margin:0; letter-spacing:-.01em}
 .audit-h .u{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:11px; color:var(--muted); letter-spacing:.03em}
 .audit-cov{font-size:12px; color:var(--muted); margin:0 0 14px}
-.audit-cov.warn{color:var(--warn)}
+.audit-cov.warn{color:var(--ink); font-weight:500}
 .audit-top{display:grid; grid-template-columns:minmax(210px,300px) 1fr; gap:16px; align-items:center; margin-bottom:16px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow)}
 .audit-tot .k{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
 .audit-tot .v{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:30px; font-weight:620; line-height:1.05; margin-top:3px}
@@ -152,6 +154,10 @@ svg{display:block; width:100%; height:auto; overflow:visible}
 .panel{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow)}
 .panel h4{margin:0 0 3px; font-size:13px; font-weight:600; color:var(--ink)}
 .panel .cap{font-size:11.5px; color:var(--muted); margin:0 0 12px}
+.panel--dark{background:var(--panel); border-color:var(--panel)}
+.panel--dark h4{color:var(--panel-ink)}
+.panel--dark .cap{color:var(--panel-ink-2)}
+.panel--dark .impact-legend span{color:var(--panel-ink-2)}
 .impact-legend{display:flex; gap:14px; flex-wrap:wrap; margin-top:10px}
 .impact-legend span{display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-2)}
 .impact-legend i{width:10px; height:10px; border-radius:2px; display:inline-block}
@@ -316,7 +322,9 @@ const METRICS = [
   {id:"pages_scanned", label:"Pages scanned (coverage)", short:"pages", better:"up", norm:false},
 ];
 const METRIC = Object.fromEntries(METRICS.map(m=>[m.id,m]));
-const SERIES_COLORS = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
+// On the dark chart panel: bright / light / white, cycled with a dash pattern so
+// series stay distinguishable by more than colour (WCAG 1.4.1).
+const SERIES_COLORS = ["--c1","--c2","--c3"];
 const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
 let state = { metric:"axe_issues", basis:"per", scope:"gov", agency:null };
@@ -345,17 +353,18 @@ function nodeFor(key){
 /* ---------- series set for current scope ---------- */
 function currentSeries(){
   const m = METRIC[state.metric];
-  if(state.scope==="gov") return [{key:"__gov__", name:"Government total", color:"--accent"}];
+  if(state.scope==="gov") return [{key:"__gov__", name:"Government total", color:"--c1"}];
   if(state.scope==="sector"){
     const secs = Object.keys(DATA.by_sector).sort();
-    return secs.map((s,i)=>({key:s, name:s.replace(/^Public Service /,"PS "), color:SERIES_COLORS[i%8]}));
+    return secs.map((s,i)=>({key:s, name:s.replace(/^Public Service /,"PS "),
+      color:SERIES_COLORS[i%3], dash:(i>=3?"7 5":"")}));
   }
   // agency: show the single selected agency + government reference
   const a = state.agency;
-  if(!a) return [{key:"__gov__", name:"Government total", color:"--accent"}];
+  if(!a) return [{key:"__gov__", name:"Government total", color:"--c1"}];
   return [
-    {key:"__gov__", name:"Government (all)", color:"--muted", ref:true},
-    {key:a, name:a, color:"--accent"},
+    {key:"__gov__", name:"Government (all)", color:"--c2", ref:true},
+    {key:a, name:a, color:"--c1"},
   ];
 }
 
@@ -417,11 +426,11 @@ function drawChart(){
     let seg=[], segs=[];
     SCANS.forEach((d,i)=>{const v=value(n,d); if(v===null||!isFinite(v)){ if(seg.length)segs.push(seg); seg=[]; } else seg.push([i,v]); });
     if(seg.length)segs.push(seg);
-    const dash = s.ref? "5 4":"";
+    const dash = s.ref? "5 4" : (s.dash||"");
     const wdt = s.ref? 1.5:2;
     segs.forEach(sg=>{
       let dstr=sg.map((p,k)=>(k?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1)).join(" ");
-      const path=el("path",{d:dstr,class:"dline",stroke:col}); path.style.strokeWidth=wdt; if(dash)path.style.strokeDasharray=dash; if(s.ref)path.style.opacity=".55"; svg.appendChild(path);
+      const path=el("path",{d:dstr,class:"dline",stroke:col}); path.style.strokeWidth=wdt; if(dash)path.style.strokeDasharray=dash; if(s.ref)path.style.opacity=".7"; svg.appendChild(path);
     });
     // markers
     SCANS.forEach((d,i)=>{const v=value(n,d); if(v===null||!isFinite(v))return; if(s.ref)return;
@@ -466,7 +475,10 @@ function drawChart(){
   const lg=document.getElementById("legend");
   lg.innerHTML=series.map(s=>{
     const col=cssv(s.color)||"#888";
-    const mark = s.ref? '<span class="sw" style="background:'+col+';opacity:.5"></span>' : '<span class="dot" style="background:'+col+'"></span>';
+    const dashed = s.ref || s.dash;
+    const mark = dashed
+      ? '<span class="sw" style="background:repeating-linear-gradient(90deg,'+col+' 0 6px,transparent 6px 11px)'+(s.ref?';opacity:.7':'')+'"></span>'
+      : '<span class="dot" style="background:'+col+'"></span>';
     return '<span class="lg">'+mark+(s.name)+(s.ref?' (reference)':'')+'</span>';
   }).join("");
 
@@ -650,8 +662,8 @@ function axeExtras(org){
   const rules=DATA.by_org_rules[org]||[];
   let impHtml="";
   if(imp){
-    const order=[["critical","--crit","Critical"],["serious","--serious","Serious"],["moderate","--s4","Moderate"]];
-    impHtml=`<div class="panel"><h4>Issues by impact</h4><p class="cap">Serious &amp; critical are what CWAC flags; moderate appears where captured.</p>
+    const order=[["critical","--c1","Critical"],["serious","--c2","Serious"],["moderate","--c3","Moderate"]];
+    impHtml=`<div class="panel panel--dark"><h4>Issues by impact</h4><p class="cap">Serious &amp; critical are what CWAC flags; moderate appears where captured.</p>
       ${impactBars(imp,order)}
       <div class="impact-legend">${order.map(([k,c,l])=>`<span><i style="background:${cssv(c)}"></i>${l}</span>`).join("")}</div></div>`;
   }
